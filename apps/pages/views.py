@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-@method_decorator(login_required, name="dispach")
-class HomePageView(TemplateView):
+
+class HomePageView(LoginRequiredMixin,TemplateView):
   template_name = 'home.html'
