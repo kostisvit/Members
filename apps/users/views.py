@@ -20,8 +20,8 @@ def custom_logout(request):
     logout(request)
     return redirect('login')
 
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
 
 
-class HomeView(TemplateView):
-    template_name = "home.html"
+# class HomeView(TemplateView):
+#     template_name = "home.html"
