@@ -16,7 +16,6 @@ class Member(models.Model):
     phone_number = models.CharField(max_length=15, unique=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
     gender = models.CharField(
