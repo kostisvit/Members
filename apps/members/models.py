@@ -26,7 +26,7 @@ class Member(models.Model):
     membership_date = models.DateField(auto_now_add=True)
     active = models.BooleanField(default=True)
     membership_number = models.CharField(max_length=10, unique=True, blank=True)
-
+    company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     
     def save(self, *args, **kwargs):
         if not self.membership_number:
@@ -47,3 +47,14 @@ class Member(models.Model):
         ordering = ['last_name', 'first_name']
         verbose_name = _('Member')
         verbose_name_plural = _('Members')
+
+
+
+
+
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
