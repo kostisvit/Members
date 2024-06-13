@@ -1,13 +1,75 @@
 {% extends '_base.html' %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Site</title>
-</head>
-<body>
-    <nav>
-        <a href="{% url 'logout' %}">Logout</a>
-    </nav>
-    <!-- Other content... -->
-</body>
-</html>
+
+
+    {% block content %}
+    <style>
+        /* Basic table styling */
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsive-table th, .responsive-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .responsive-table, .responsive-table thead, .responsive-table tbody, .responsive-table th, .responsive-table td, .responsive-table tr {
+    display: block;
+  }
+  
+  .responsive-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .responsive-table tr {
+    margin: 0 0 1rem 0;
+  }
+  
+  .responsive-table td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+  
+  .responsive-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+}
+
+    </style>
+    <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+            <th>Header 3</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td data-label="Header 1">{{ member.first_name }}</td>
+                <td data-label="Header 2">{{ member.last_name }}</td>
+                <td data-label="Header 3">{{ member.company }}</td>
+              </tr>
+              {% endfor %}
+        </tbody>
+      </table>
+ 
+    {% endblock %}
+
