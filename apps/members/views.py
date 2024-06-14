@@ -6,3 +6,4 @@ class MemberListView(ListView):
     model = Member
     template_name = 'app/member.html'  # Specify your template name
     context_object_name = 'members'
+    #paginate_by = 2

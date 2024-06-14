@@ -4,23 +4,45 @@
 {% block extrahead %} <link rel="stylesheet" href="{% static 'css/members-table.css' %}"> {% endblock %}
 
 {% block content %}
+
+<!--Buttons-->
+<div class="buttons" style="margin-bottom: 10px;">
+<a href="" class="btn btn-success">Νέο μέλος<a/>
+</div>
+<!--End Buttons-->
+
 <table class="responsive-table">
     <thead>
       <tr>
-        <th>Header 1</th>
-        <th>Header 2</th>
-        <th>Header 3</th>
+        <th colspan="7">Members Information</th>
+      </tr>
+      <tr>
+        <th>Ονοματεπώνυμο</th>
+        <th>Εργαστήρι</th>
+        <th>Email</th>
+        <th>Τηλ. Επικ.</th>
+        <th>Φύλλο</th>
+        <th>Εγγραφή</th>
+        <th>Κατάσταση</th>
       </tr>
     </thead>
     <tbody>
         {% for member in members %}
         <tr>
-            <td data-label="Header 1">{{ member.first_name }}</td>
-            <td data-label="Header 2">{{ member.last_name }}</td>
-            <td data-label="Header 3">{{ member.company }}</td>
+            <td data-label="Ονοματεπώνυμο">{{ member.first_name }} {{ member.last_name }}</td>
+            <td data-label="Εργαστήρι">{{ member.company }}</td>
+            <td data-label="Email">{{ member.email }}</td>
+            <td data-label="Τηλ. Επικ.">{{ member.phone_number }}</td>
+            <td data-label="Φύλλο">{{ member.gender }}</td>
+            <td data-label="Εγγραφή">{{ member.membership_date }}</td>
+            {% if member.active == True %}
+            <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
+            {% else %}
+            <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
+            {% endif %}
           </tr>
           {% endfor %}
     </tbody>
-  </table>
 
+  </table>
 {% endblock %}
