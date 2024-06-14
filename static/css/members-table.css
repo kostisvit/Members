@@ -1,0 +1,47 @@
+        /* Basic table styling */
+        .responsive-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          
+          .responsive-table th, .responsive-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+          }
+          
+          /* Responsive styling */
+          @media (max-width: 600px) {
+            .responsive-table, .responsive-table thead, .responsive-table tbody, .responsive-table th, .responsive-table td, .responsive-table tr {
+              display: block;
+            }
+            
+            .responsive-table thead tr {
+              position: absolute;
+              top: -9999px;
+              left: -9999px;
+            }
+            
+            .responsive-table tr {
+              margin: 0 0 1rem 0;
+            }
+            
+            .responsive-table td {
+              border: none;
+              border-bottom: 1px solid #eee;
+              position: relative;
+              padding-left: 50%;
+              white-space: normal;
+              text-align: left;
+            }
+            
+            .responsive-table td:before {
+              content: attr(data-label);
+              position: absolute;
+              left: 0;
+              width: 45%;
+              padding-left: 15px;
+              font-weight: bold;
+              white-space: nowrap;
+            }
+          }

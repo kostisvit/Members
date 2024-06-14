@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block extrahead %} <link rel="stylesheet" href="{% static 'css/members-table.css' %}"> {% endblock %}
+
+{% block content %}
+<table class="responsive-table">
+    <thead>
+      <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+        <th>Header 3</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td data-label="Header 1">{{ member.first_name }}</td>
+            <td data-label="Header 2">{{ member.last_name }}</td>
+            <td data-label="Header 3">{{ member.company }}</td>
+          </tr>
+          {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
