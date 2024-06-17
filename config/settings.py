@@ -35,6 +35,10 @@ INSTALLED_APPS = [
     'users',
     'pages',
     'members',
+    
+    #External apps
+    'django_filters',
+    'widget_tweaks',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'

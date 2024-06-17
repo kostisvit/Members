@@ -1,9 +1,39 @@
 {% extends '_base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 
 {% block extrahead %} <link rel="stylesheet" href="{% static 'css/members-table.css' %}"> {% endblock %}
 
 {% block content %}
+
+<form method="get" id="filter-form">
+  {% csrf_token %}
+  <div class="well">
+    <div class="row">
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.city.label_tag }}
+        {% render_field filter.form.city class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.email.label_tag }}
+        {% render_field filter.form.email class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.phone_number.label_tag }}
+        {% render_field filter.form.phone_number class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.active.label_tag }}
+        {% render_field filter.form.active class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-2">
+        <button type="submit" class="btn btn-warning btn-dm" style="position: absolute; top:50%; visibility: hidden;">
+          <span class="fa fa-search"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
 
 <!--Buttons-->
 <div class="buttons" style="margin-bottom: 10px;">
@@ -11,7 +41,7 @@
 </div>
 <!--End Buttons-->
 
-<table class="responsive-table">
+<table class="responsive-table" id="sortableTable"> 
     <thead>
       <tr>
         <th colspan="7">Members Information</th>
@@ -45,4 +75,56 @@
     </tbody>
 
   </table>
+  <script>
+    // Get the form and the select element
+    const form = document.getElementById('filter-form');
+    const select = form.querySelector('select[name="active"]');
+
+    // Add an event listener to the select element to submit the form on change
+    select.addEventListener('change', function() {
+        form.submit();
+    });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('sortableTable');
+    const headers = table.querySelectorAll('th');
+
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const tableBody = table.querySelector('tbody');
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+            const index = Array.from(header.parentNode.children).indexOf(header);
+            const type = header.getAttribute('data-type');
+            const ascending = header.classList.contains('asc');
+            
+            // Remove sorting classes from all headers
+            headers.forEach(th => th.classList.remove('asc', 'desc'));
+
+            // Add sorting class to the current header
+            header.classList.toggle('asc', !ascending);
+            header.classList.toggle('desc', ascending);
+
+            // Sorting function
+            const compare = (a, b) => {
+                const aText = a.children[index].textContent;
+                const bText = b.children[index].textContent;
+
+                if (type === 'number') {
+                    return ascending ? bText - aText : aText - bText;
+                } else {
+                    return ascending
+                        ? bText.localeCompare(aText)
+                        : aText.localeCompare(bText);
+                }
+            };
+
+            rows.sort(compare);
+
+            // Append sorted rows to the table body
+            rows.forEach(row => tableBody.appendChild(row));
+        });
+    });
+});
+</script>
 {% endblock %}
