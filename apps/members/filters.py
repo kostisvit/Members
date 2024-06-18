@@ -2,7 +2,7 @@ import django_filters
 from .models import Member
 
 class MemberFilter(django_filters.FilterSet):
-    city = django_filters.CharFilter(lookup_expr='icontains',label="Πόλη")
+    last_name = django_filters.CharFilter(lookup_expr='icontains',label="Επώνυμο")
     email = django_filters.CharFilter(lookup_expr='icontains',label="Email")
     phone_number = django_filters.CharFilter(lookup_expr='icontains',label="Τηλέφωνο")
     active = django_filters.ChoiceFilter(

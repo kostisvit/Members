@@ -11,8 +11,8 @@
   <div class="well">
     <div class="row">
       <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.city.label_tag }}
-        {% render_field filter.form.city class="form-control" %}
+        {{ filter.form.last_name.label_tag }}
+        {% render_field filter.form.last_name class="form-control" %}
       </div>
       <div class="form-group col-sm-4 col-md-3">
         {{ filter.form.email.label_tag }}
@@ -37,14 +37,15 @@
 
 <!--Buttons-->
 <div class="buttons" style="margin-bottom: 10px;">
-<a href="" class="btn btn-success">Νέο μέλος<a/>
+<a href="" class="btn btn-primary">Νέο μέλος<a/>
+<a href="{% url 'members-list-export' %}" class="btn btn-success">Export<a/>
 </div>
 <!--End Buttons-->
 
 <table class="responsive-table" id="sortableTable"> 
     <thead>
       <tr>
-        <th colspan="7">Members Information</th>
+        <th colspan="8">Members Information</th>
       </tr>
       <tr>
         <th>Ονοματεπώνυμο</th>
@@ -54,10 +55,11 @@
         <th>Φύλλο</th>
         <th>Εγγραφή</th>
         <th>Κατάσταση</th>
+        <th>Ενέργειες</th>
       </tr>
     </thead>
     <tbody>
-        {% for member in members %}
+        {% for member in page_obj %}
         <tr>
             <td data-label="Ονοματεπώνυμο">{{ member.first_name }} {{ member.last_name }}</td>
             <td data-label="Εργαστήρι">{{ member.company }}</td>
@@ -70,11 +72,28 @@
             {% else %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
             {% endif %}
+            <td data-label="Ενέργειες"></td>
           </tr>
           {% endfor %}
     </tbody>
-
   </table>
+  <div class="pagination" style="margin-top: 10px;">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-primary" class="btn btn-primary">first</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary" style="margin-left:5px;">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-primary" style="margin-left:5px;">last </a>
+        {% endif %}
+    </span>
+</div>
   <script>
     // Get the form and the select element
     const form = document.getElementById('filter-form');

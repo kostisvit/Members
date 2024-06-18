@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     #External apps
     'django_filters',
     'widget_tweaks',
+    'import_export',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
