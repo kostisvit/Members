@@ -40,7 +40,13 @@ INSTALLED_APPS = [
     'django_filters',
     'widget_tweaks',
     'import_export',
+    "crispy_forms",
+    "crispy_tailwind",
+    "crispy_bootstrap5",
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
