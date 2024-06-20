@@ -2,7 +2,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django_filters.views import FilterView
-from .models import Member
+from .models import Member, Subscription
 from .filters import MemberFilter
 from .export import Export_data
 
@@ -22,7 +22,7 @@ class MemberListView(LoginRequiredMixin,FilterView):
     filterset_class = MemberFilter
     paginate_by = 10
 
-
+# Member Profile Update
 class MemberUpdateView(UpdateView):
     model = Member
     fields = '__all__'
@@ -39,3 +39,13 @@ class MemberUpdateView(UpdateView):
             logger.error(f'Error updating book: {e}')
             form.add_error(None, 'An error occurred while updating the book.')
             return super().form_invalid(form)
+
+
+
+# Subscription list 
+class SubscriptionListView(LoginRequiredMixin, FilterView):
+    model = Subscription
+    fields = '__all__'
+    template_name = 'app/subscription.html'
+    context_object_name = 'subscriptions'
+    paginate_by = 10

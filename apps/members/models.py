@@ -49,7 +49,14 @@ class Member(models.Model):
         verbose_name_plural = _('Members')
 
 
+class Subscription(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='subscriptions')
+    plan_name = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()
 
+    # def __str__(self):
+    #     return f"{self.plan_name} for {self.member.last_name}"
 
 
 class Company(models.Model):

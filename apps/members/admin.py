@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Member, Company
+from .models import Member, Company, Subscription
 
 
 class MemberModelAdmin(admin.ModelAdmin):
@@ -14,5 +14,9 @@ class CompanyModelAdmin(admin.ModelAdmin):
     list_display = ("name","address",)
 
 
+class SubscriptionModelAdmin(admin.ModelAdmin):
+    list_display = ("member","plan_name","start_date","end_date",)
+
 admin.site.register(Member,MemberModelAdmin)
 admin.site.register(Company)
+admin.site.register(Subscription,SubscriptionModelAdmin)

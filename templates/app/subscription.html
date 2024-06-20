@@ -1,0 +1,144 @@
+{% extends '_base.html' %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block extrahead %} <link rel="stylesheet" href="{% static 'css/members-table.css' %}"> {% endblock %}
+
+{% block content %}
+
+{% comment %} <form method="get" id="filter-form">
+  {% csrf_token %}
+  <div class="well">
+    <div class="row">
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.last_name.label_tag }}
+        {% render_field filter.form.last_name class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.email.label_tag }}
+        {% render_field filter.form.email class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.phone_number.label_tag }}
+        {% render_field filter.form.phone_number class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ filter.form.active.label_tag }}
+        {% render_field filter.form.active class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-2">
+        <button type="submit" class="btn btn-warning btn-dm" style="position: absolute; top:50%; visibility: hidden;">
+          <span class="fa fa-search"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form> {% endcomment %}
+
+<!--Buttons-->
+{% comment %} <div class="buttons" style="margin-bottom: 10px;">
+<a href="" class="btn btn-primary">Νέο μέλος<a/>
+<a href="{% url 'members-list-export' %}" class="btn btn-success">Export<a/>
+</div> {% endcomment %}
+<!--End Buttons-->
+
+<table class="responsive-table" id="sortableTable"> 
+    <thead>
+      <tr>
+        <th colspan="8">Members Information</th>
+      </tr>
+      <tr>
+        <th>member</th>
+        <th>plan_name</th>
+        <th>start_date</th>
+        <th>end_date</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for subscription in page_obj %}
+        <tr>
+            <td data-label="">{{ subscription.member }}</td>
+            <td data-label="">{{ subscription.plan_name }}</td>
+            <td data-label="">{{ subscription.start_date }}</td>
+            <td data-label="">{{ subscription.end_date }}</td>
+            {% comment %} {% if member.active == True %}
+            <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
+            {% else %}
+            <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
+            {% endif %}
+            <td data-label="Ενέργειες"></td> {% endcomment %}
+          </tr>
+          {% endfor %}
+    </tbody>
+  </table>
+  <div class="pagination" style="margin-top: 10px;">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-primary" class="btn btn-primary">first</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary" style="margin-left:5px;">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-primary" style="margin-left:5px;">last </a>
+        {% endif %}
+    </span>
+</div>
+  {% comment %} <script>
+    // Get the form and the select element
+    const form = document.getElementById('filter-form');
+    const select = form.querySelector('select[name="active"]');
+
+    // Add an event listener to the select element to submit the form on change
+    select.addEventListener('change', function() {
+        form.submit();
+    });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('sortableTable');
+    const headers = table.querySelectorAll('th');
+
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const tableBody = table.querySelector('tbody');
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+            const index = Array.from(header.parentNode.children).indexOf(header);
+            const type = header.getAttribute('data-type');
+            const ascending = header.classList.contains('asc');
+            
+            // Remove sorting classes from all headers
+            headers.forEach(th => th.classList.remove('asc', 'desc'));
+
+            // Add sorting class to the current header
+            header.classList.toggle('asc', !ascending);
+            header.classList.toggle('desc', ascending);
+
+            // Sorting function
+            const compare = (a, b) => {
+                const aText = a.children[index].textContent;
+                const bText = b.children[index].textContent;
+
+                if (type === 'number') {
+                    return ascending ? bText - aText : aText - bText;
+                } else {
+                    return ascending
+                        ? bText.localeCompare(aText)
+                        : aText.localeCompare(bText);
+                }
+            };
+
+            rows.sort(compare);
+
+            // Append sorted rows to the table body
+            rows.forEach(row => tableBody.appendChild(row));
+        });
+    });
+});
+</script> {% endcomment %}
+{% endblock %}
