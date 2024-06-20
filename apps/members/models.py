@@ -27,6 +27,8 @@ class Member(models.Model):
     active = models.BooleanField(default=True)
     membership_number = models.CharField(max_length=10, unique=True, blank=True)
     company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     
     def save(self, *args, **kwargs):
         if not self.membership_number:
@@ -56,6 +58,8 @@ class Subscription(models.Model):
     end_date = models.DateField()
     active = models.BooleanField(default=True)
     subscription_number = models.CharField(max_length=10, unique=True, blank=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     
     def save(self, *args, **kwargs):
         if not self.subscription_number:
@@ -65,7 +69,7 @@ class Subscription(models.Model):
     def generate_unique_code(self):
         while True:
             subscription_number = ''.join([str(random.randint(0, 9)) for _ in range(9)])
-            if not Member.objects.filter(subscription_number=subscription_number).exists():
+            if not Subscription.objects.filter(subscription_number=subscription_number).exists():
                 break
         return subscription_number
 
@@ -76,6 +80,8 @@ class Subscription(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    
     def __str__(self):
         return self.name

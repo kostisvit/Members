@@ -7,25 +7,17 @@
 
 {% block content %}
 
-{% comment %} <form method="get" id="filter-form">
+<form method="get" id="filter-form">
   {% csrf_token %}
   <div class="well">
     <div class="row">
-      <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.last_name.label_tag }}
-        {% render_field filter.form.last_name class="form-control" %}
-      </div>
-      <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.email.label_tag }}
-        {% render_field filter.form.email class="form-control" %}
-      </div>
-      <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.phone_number.label_tag }}
-        {% render_field filter.form.phone_number class="form-control" %}
-      </div>
-      <div class="form-group col-sm-4 col-md-3">
+      <div class="form-group col-sm-4 col-md-2">
         {{ filter.form.active.label_tag }}
         {% render_field filter.form.active class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-1">
+        {{ filter.form.start_date.label_tag }}
+        {% render_field filter.form.start_date class="form-control" %}
       </div>
       <div class="form-group col-sm-4 col-md-2">
         <button type="submit" class="btn btn-warning btn-dm" style="position: absolute; top:50%; visibility: hidden;">
@@ -34,7 +26,7 @@
       </div>
     </div>
   </div>
-</form> {% endcomment %}
+</form>
 
 <!--Buttons-->
 <div class="buttons" style="margin-bottom: 10px;">
@@ -62,8 +54,8 @@
         <tr>
             <td data-label="">{{ subscription.member }}</td>
             <td data-label="">{{ subscription.plan_name }}</td>
-            <td data-label="">{{ subscription.start_date }}</td>
-            <td data-label="">{{ subscription.end_date }}</td>
+            <td data-label="">{{ subscription.start_date|date:"d/m/Y" }}</td>
+            <td data-label="">{{ subscription.end_date|date:"d/m/Y" }}</td>
             {% if subscription.active == True %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
             {% else %}

@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django_filters.views import FilterView
 from .models import Member, Subscription
-from .filters import MemberFilter
+from .filters import MemberFilter,SubscriptionFilter
 from .export import Export_data
 
 import logging
@@ -21,6 +21,9 @@ class MemberListView(LoginRequiredMixin,FilterView):
     context_object_name = 'members'
     filterset_class = MemberFilter
     paginate_by = 10
+    
+    # def get_queryset(self):
+    #     return Member.objects.filter(author=self.request.user)
 
 # Member Profile Update
 class MemberUpdateView(UpdateView):
@@ -45,7 +48,8 @@ class MemberUpdateView(UpdateView):
 # Subscription list 
 class SubscriptionListView(LoginRequiredMixin, FilterView):
     model = Subscription
-    fields = '__all__'
+    #fields = '__all__'
+    filterset_class = SubscriptionFilter
     template_name = 'app/subscription.html'
     context_object_name = 'subscriptions'
     paginate_by = 10
