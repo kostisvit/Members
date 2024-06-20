@@ -1,6 +1,7 @@
 import random
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 class Member(models.Model):
@@ -41,6 +42,9 @@ class Member(models.Model):
             if not Member.objects.filter(membership_number=membership_number).exists():
                 break
         return membership_number
+    
+    def get_absolute_url(self):
+        return reverse('member_edit', args=[str(self.id)])
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
