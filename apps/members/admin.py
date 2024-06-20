@@ -15,7 +15,8 @@ class CompanyModelAdmin(admin.ModelAdmin):
 
 
 class SubscriptionModelAdmin(admin.ModelAdmin):
-    list_display = ("member","plan_name","start_date","end_date",)
+    list_display = ("member","plan_name","start_date","end_date","active","subscription_number")
+    readonly_fields = ('subscription_number',)
 
 admin.site.register(Member,MemberModelAdmin)
 admin.site.register(Company)

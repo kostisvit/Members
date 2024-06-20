@@ -54,6 +54,20 @@ class Subscription(models.Model):
     plan_name = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
+    active = models.BooleanField(default=True)
+    subscription_number = models.CharField(max_length=10, unique=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.subscription_number:
+            self.subscription_number = self.generate_unique_code()
+        super().save(*args, **kwargs)
+
+    def generate_unique_code(self):
+        while True:
+            subscription_number = ''.join([str(random.randint(0, 9)) for _ in range(9)])
+            if not Member.objects.filter(subscription_number=subscription_number).exists():
+                break
+        return subscription_number
 
     # def __str__(self):
     #     return f"{self.plan_name} for {self.member.last_name}"

@@ -19,8 +19,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['members-510f.onrender.com']
+ALLOWED_HOSTS = []
 
+DEBUG = True
 
 # Application definition
 
@@ -86,7 +87,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DEBUG = os.getenv('DEBUG', 'False') == 'False'
+
 
 if DEBUG:
     # Use SQLite for development
@@ -99,9 +100,10 @@ if DEBUG:
 else:
     # Use the DATABASE_URL environment variable for production
     DATABASES = {
-        'default': dj_database_url.config(
-            default=os.getenv('DATABASE_URL')
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite4'),
+        }
     }
 
 

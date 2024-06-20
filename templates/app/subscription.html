@@ -37,10 +37,10 @@
 </form> {% endcomment %}
 
 <!--Buttons-->
-{% comment %} <div class="buttons" style="margin-bottom: 10px;">
-<a href="" class="btn btn-primary">Νέο μέλος<a/>
-<a href="{% url 'members-list-export' %}" class="btn btn-success">Export<a/>
-</div> {% endcomment %}
+<div class="buttons" style="margin-bottom: 10px;">
+<a href="" class="btn btn-primary">Νέο εγγραφή<a/>
+<a href="#" class="btn btn-success">Export<a/>
+</div>
 <!--End Buttons-->
 
 <table class="responsive-table" id="sortableTable"> 
@@ -53,6 +53,8 @@
         <th>plan_name</th>
         <th>start_date</th>
         <th>end_date</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -62,12 +64,12 @@
             <td data-label="">{{ subscription.plan_name }}</td>
             <td data-label="">{{ subscription.start_date }}</td>
             <td data-label="">{{ subscription.end_date }}</td>
-            {% comment %} {% if member.active == True %}
+            {% if subscription.active == True %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
             {% else %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
             {% endif %}
-            <td data-label="Ενέργειες"></td> {% endcomment %}
+            <td data-label="Ενέργειες"></td>
           </tr>
           {% endfor %}
     </tbody>
