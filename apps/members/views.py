@@ -15,7 +15,7 @@ from django.contrib import messages
 logger = logging.getLogger(__name__)
 
 # Member list view
-class MemberListView(LoginRequiredMixin,FilterView):
+class MemberListView(FilterView):
     model = Member
     template_name = 'app/member.html'
     context_object_name = 'members'
@@ -43,7 +43,7 @@ class MemberUpdateView(UpdateView):
 
 
 # Subscription list 
-class SubscriptionListView(LoginRequiredMixin, FilterView):
+class SubscriptionListView( FilterView):
     model = Subscription
     fields = '__all__'
     template_name = 'app/subscription.html'
