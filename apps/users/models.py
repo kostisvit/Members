@@ -4,9 +4,10 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
-
+from company.models import Company
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default='1')
     first_name = models.CharField(max_length=30, default='First Name')
     last_name = models.CharField(max_length=30, default='Last Name')
     phone_number = models.CharField(max_length=15, unique=True, default='123456789')
