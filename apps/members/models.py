@@ -30,7 +30,6 @@ class Member(models.Model):
     membership_date = models.DateField(auto_now_add=True)
     active = models.BooleanField(default=True)
     membership_number = models.CharField(max_length=10, unique=True, blank=True)
-    company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     
@@ -97,11 +96,11 @@ class Subscription(models.Model):
 
 
 
-class Company(models.Model):
-    name = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
+# class Company(models.Model):
+#     name = models.CharField(max_length=255)
+#     address = models.CharField(max_length=255)
+#     created_at = models.DateField(auto_now_add=True)
+#     updated_at = models.DateField(auto_now=True)
     
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'users',
     'pages',
     'members',
+    'company',
     
     #External apps
     'django_filters',
