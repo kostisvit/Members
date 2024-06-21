@@ -3,15 +3,18 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from users.models import CustomUser
+
 
 class Member(models.Model):
     class Gender(models.TextChoices):
         MALE = 'M', _('Male')
         FEMALE = 'F', _('Female')
         OTHER = 'O', _('Other')
-    
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    courses = models.ManyToManyField('Course', through='Subscription')
     date_of_birth = models.DateField()
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, unique=True)
@@ -55,8 +58,19 @@ class Member(models.Model):
         verbose_name_plural = _('Members')
 
 
+class Course(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
+
 class Subscription(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='subscriptions')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     plan_name = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -81,14 +95,7 @@ class Subscription(models.Model):
     #     return f"{self.plan_name} for {self.member.last_name}"
 
 
-class Course(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
 
-    def __str__(self):
-        return self.title
 
 class Company(models.Model):
     name = models.CharField(max_length=255)

@@ -53,3 +53,6 @@ class SubscriptionListView(LoginRequiredMixin, FilterView):
     template_name = 'app/subscription.html'
     context_object_name = 'subscriptions'
     paginate_by = 10
+    
+    def get_queryset(self):
+        return Subscription.objects.filter(member__user=self.request.user)
