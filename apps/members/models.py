@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from users.models import CustomUser
-
+from company.models import Company
 
 class Member(models.Model):
     class Gender(models.TextChoices):
@@ -12,6 +12,7 @@ class Member(models.Model):
         FEMALE = 'F', _('Female')
         OTHER = 'O', _('Other')
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE,default='1', related_name='members')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     courses = models.ManyToManyField('Course', through='Subscription')
@@ -66,6 +67,7 @@ class Course(models.Model):
     def __str__(self):
         return self.title
     
+
 
 class Subscription(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='subscriptions')

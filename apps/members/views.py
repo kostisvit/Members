@@ -1,12 +1,10 @@
 # views.py
+import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
 from django_filters.views import FilterView
 from .models import Member, Subscription
 from .filters import MemberFilter,SubscriptionFilter
 from .export import Export_data
-
-import logging
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -22,8 +20,8 @@ class MemberListView(LoginRequiredMixin,FilterView):
     filterset_class = MemberFilter
     paginate_by = 10
     
-    # def get_queryset(self):
-    #     return Member.objects.filter(author=self.request.user)
+    def get_queryset(self):
+        return Member.objects.filter(user=self.request.user)
 
 # Member Profile Update
 class MemberUpdateView(UpdateView):
