@@ -12,7 +12,7 @@ class Member(models.Model):
         FEMALE = 'F', _('Female')
         OTHER = 'O', _('Other')
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE,default='1', related_name='members')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE,default='1')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     courses = models.ManyToManyField('Course', through='Subscription')
