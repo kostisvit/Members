@@ -61,13 +61,13 @@
     <tbody>
         {% for member in page_obj %}
         <tr>
-            <td data-label="Ονοματεπώνυμο">{{ member.user }} {{ member.last_name }}</td>
+            <td data-label="Ονοματεπώνυμο">{{ member.user.first_name }} {{ member.user.last_name }}</td>
             <td data-label="Εργαστήρι">{{ member.company }}</td>
-            <td data-label="Email">{{ member.email }}</td>
-            <td data-label="Τηλ. Επικ.">{{ member.phone_number }}</td>
-            <td data-label="Φύλλο">{{ member.gender }}</td>
-            <td data-label="Εγγραφή">{{ member.membership_date }}</td>
-            {% if member.active == True %}
+            <td data-label="Email">{{ member.user.email }}</td>
+            <td data-label="Τηλ. Επικ.">{{ member.user.phone_number }}</td>
+            <td data-label="Φύλλο">{{ member.user.gender }}</td>
+            <td data-label="Εγγραφή">{{ member.user.membership_date }}</td>
+            {% if member.user.is_active == True %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
             {% else %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
