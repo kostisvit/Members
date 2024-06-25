@@ -37,9 +37,29 @@ class Member(TimeStampMixin):
     def get_absolute_url(self):
         return reverse('member_edit', args=[str(self.id)])
     
+    def __str__(self):
+        return f"{self.user}"
 
 
     class Meta:
         ordering = ['user']
         verbose_name = _('Member')
         verbose_name_plural = _('Members')
+
+
+class Course(TimeStampMixin):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+    
+    
+class Subscription(TimeStampMixin):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    start_date = models.DateField(auto_now_add=True)
+    end_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.member.name} subscribed to {self.course.title}"
