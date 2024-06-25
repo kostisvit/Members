@@ -3,8 +3,8 @@ from .models import Member
 
 
 class MemberModelAdmin(admin.ModelAdmin):
-    list_display = ("user","is_student","membership_number","created_at","updated_at")
-    list_filter = ("user",)
+    list_display = ("user","company","is_student","membership_number","created_at","updated_at")
+    list_filter = ("company",)
     readonly_fields = ('membership_number',)
     search_fields = ("user",)
     ordering = ("user",)

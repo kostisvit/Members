@@ -20,8 +20,8 @@ class MemberListView(LoginRequiredMixin,FilterView):
     #filterset_class = MemberFilter
     paginate_by = 10
     
-    # def get_queryset(self):
-    #     return Member.objects.filter(user=self.request.user)
+    def get_queryset(self):
+        return Member.objects.filter(company=self.request.user.company)
 
 # Member Profile Update
 class MemberUpdateView(UpdateView):

@@ -35,7 +35,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_staff', 'is_active')
     readonly_fields = ('membership_date',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('company','email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'date_of_birth','phone_number','address','city','country','gender','membership_date',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),

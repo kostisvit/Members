@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from company.models import Company
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -29,6 +30,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         MALE = 'M', _('Male')
         FEMALE = 'F', _('Female')
         OTHER = 'O', _('Other')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default='1')
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
