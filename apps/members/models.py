@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from users.models import CustomUser
+from company.models import Company
 
 
 
@@ -17,6 +18,7 @@ class TimeStampMixin(models.Model):
 
 class Member(TimeStampMixin):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default='1')
     is_student = models.BooleanField(default=True)
     membership_number = models.CharField(max_length=10, unique=True, blank=True)
     
@@ -35,8 +37,7 @@ class Member(TimeStampMixin):
     def get_absolute_url(self):
         return reverse('member_edit', args=[str(self.id)])
     
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+
 
     class Meta:
         ordering = ['user']
