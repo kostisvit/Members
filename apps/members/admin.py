@@ -3,7 +3,7 @@ from .models import Member
 
 
 class MemberModelAdmin(admin.ModelAdmin):
-    list_display = ("user","is_student","membership_number")
+    list_display = ("user","is_student","membership_number","created_at","updated_at")
     list_filter = ("user",)
     readonly_fields = ('membership_number',)
     search_fields = ("user",)
