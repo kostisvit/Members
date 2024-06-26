@@ -53,10 +53,10 @@
         {% for subscription in page_obj %}
         <tr>
             <td data-label="">{{ subscription.member }}</td>
-            <td data-label="">{{ subscription.plan_name }}</td>
+            <td data-label="">{{ subscription.course }}</td>
             <td data-label="">{{ subscription.start_date|date:"d/m/Y" }}</td>
             <td data-label="">{{ subscription.end_date|date:"d/m/Y" }}</td>
-            {% if subscription.active == True %}
+            {% if subscription.is_online == True %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
             {% else %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>

@@ -2,7 +2,7 @@
 import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
-from .models import Member
+from .models import Member, Subscription
 #from .filters import MemberFilter,SubscriptionFilter
 from .export import Export_data
 from django.views.generic.edit import UpdateView
@@ -44,13 +44,13 @@ class MemberUpdateView(UpdateView):
 
 
 # Subscription list 
-# class SubscriptionListView(LoginRequiredMixin, FilterView):
-#     model = Subscription
-#     #fields = '__all__'
-#     filterset_class = SubscriptionFilter
-#     template_name = 'app/subscription.html'
-#     context_object_name = 'subscriptions'
-#     paginate_by = 10
+class SubscriptionListView(LoginRequiredMixin, FilterView):
+    model = Subscription
+    fields = '__all__'
+    #filterset_class = SubscriptionFilter
+    template_name = 'app/subscription.html'
+    context_object_name = 'subscriptions'
+    paginate_by = 10
     
-#     def get_queryset(self):
-#         return Subscription.objects.filter(member__user=self.request.user)
+    def get_queryset(self):
+        return Subscription.objects.filter(member__company=self.request.user.company)

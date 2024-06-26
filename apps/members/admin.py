@@ -11,12 +11,12 @@ class MemberModelAdmin(admin.ModelAdmin):
 
 
 class SubscriptionModelAdmin(admin.ModelAdmin):
-    list_display = ("member","course","start_date","end_date")
+    list_display = ("member","course","is_online","start_date","end_date")
     readonly_fields = ()
 
 
 class CourseModelAdmin(admin.ModelAdmin):
-    list_display = ("title","description","created_at","updated_at")
+    list_display = ("title","description","is_online","created_at","updated_at")
 
 admin.site.register(Member,MemberModelAdmin)
 admin.site.register(Subscription,SubscriptionModelAdmin)

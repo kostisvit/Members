@@ -50,6 +50,7 @@ class Member(TimeStampMixin):
 class Course(TimeStampMixin):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    is_online = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -58,8 +59,9 @@ class Course(TimeStampMixin):
 class Subscription(TimeStampMixin):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    is_online = models.BooleanField(default=True)
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.member.name} subscribed to {self.course.title}"
+        return f"{self.member.user} subscribed to {self.course.title}"
