@@ -17,7 +17,8 @@ class SubscriptionModelAdmin(admin.ModelAdmin):
 
 class CourseModelAdmin(admin.ModelAdmin):
     list_display = ("title","description","is_online","created_at","updated_at")
-
+    list_display_links = ("title","description",)
+    
 admin.site.register(Member,MemberModelAdmin)
 admin.site.register(Subscription,SubscriptionModelAdmin)
 admin.site.register(Course,CourseModelAdmin)

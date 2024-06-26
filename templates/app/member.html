@@ -11,20 +11,8 @@
   <div class="well">
     <div class="row">
       <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.last_name.label_tag }}
-        {% render_field filter.form.last_name class="form-control" %}
-      </div>
-      <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.email.label_tag }}
-        {% render_field filter.form.email class="form-control" %}
-      </div>
-      <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.phone_number.label_tag }}
-        {% render_field filter.form.phone_number class="form-control" %}
-      </div>
-      <div class="form-group col-sm-4 col-md-3">
-        {{ filter.form.active.label_tag }}
-        {% render_field filter.form.active class="form-control" %}
+        {{ filter.form.membership_number.label_tag }}
+        {% render_field filter.form.membership_number class="form-control" %}
       </div>
       <div class="form-group col-sm-4 col-md-2">
         <button type="submit" class="btn btn-warning btn-dm" style="position: absolute; top:50%; visibility: hidden;">
@@ -45,7 +33,7 @@
 <table class="responsive-table" id="sortableTable"> 
     <thead>
       <tr>
-        <th colspan="8">Members Information</th>
+        <th colspan="9">Members Information</th>
       </tr>
       <tr>
         <th>Ονοματεπώνυμο</th>
@@ -54,6 +42,7 @@
         <th>Τηλ. Επικ.</th>
         <th>Φύλλο</th>
         <th>Εγγραφή</th>
+        <th>Κωδ.Μέλους</th>
         <th>Κατάσταση</th>
         <th>Ενέργειες</th>
       </tr>
@@ -67,6 +56,7 @@
             <td data-label="Τηλ. Επικ.">{{ member.user.phone_number }}</td>
             <td data-label="Φύλλο">{{ member.user.gender }}</td>
             <td data-label="Εγγραφή">{{ member.user.membership_date }}</td>
+            <td data-label="Κωδ.Μέλους">#{{ member.membership_number }}</td>
             {% if member.user.is_active == True %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-smile-fill" style="color: green; font-size: 2em;"></i></td>
             {% else %}

@@ -7,13 +7,13 @@
 
 {% block content %}
 
-<form method="get" id="filter-form">
+<form method="get" id="filter-form" action="{% url 'subscriptions-list' %}">
   {% csrf_token %}
   <div class="well">
     <div class="row">
       <div class="form-group col-sm-4 col-md-2">
-        {{ filter.form.active.label_tag }}
-        {% render_field filter.form.active class="form-control" %}
+        {{ filter.form.is_online.label_tag }}
+        {% render_field filter.form.is_online class="form-control" %}
       </div>
       <div class="form-group col-sm-4 col-md-1">
         {{ filter.form.start_date.label_tag }}
@@ -83,6 +83,7 @@
         {% endif %}
     </span>
 </div>
+
   {% comment %} <script>
     // Get the form and the select element
     const form = document.getElementById('filter-form');
@@ -135,4 +136,8 @@
     });
 });
 </script> {% endcomment %}
+{% endblock %}
+{% block extrascripts %}
+<script src="{% static 'js/filter-active.js' %}"></script>
+<script src="{% static 'js/sort-table.js' %}"></script>
 {% endblock %}
