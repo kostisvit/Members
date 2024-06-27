@@ -184,3 +184,10 @@ a.article:hover {
         display: none;
     }
 }
+
+/* responsive test 26/6 */
+@media (min-width: 1200px) {
+    #sidebar {
+        font-size: x-large;
+    }
+  }
