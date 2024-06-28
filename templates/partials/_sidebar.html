@@ -1,3 +1,4 @@
+{% load custom_filters %}
 <body>
 
     <div class="wrapper">
@@ -8,7 +9,7 @@
             </div>
 
             <ul class="list-unstyled components">
-                <p>{% if user.is_authenticated %} Hello {{ user.email }}{% endif %}</p>
+                <p>{% if user.is_authenticated %} Hello {{ user.email|username_from_email }}{% endif %}</p>
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Αρχείο</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
