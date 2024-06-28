@@ -8,7 +8,7 @@
             </div>
 
             <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
+                <p>{% if user.is_authenticated %} Hello {{ user.email }}{% endif %}</p>
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Αρχείο</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
