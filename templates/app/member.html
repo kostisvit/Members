@@ -62,7 +62,7 @@
             {% else %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
             {% endif %}
-            <td data-label="Ενέργειες"><a href="{{member.get_absolute_url}}">edit</a></td>
+            <td data-label="Ενέργειες"><a href="{{member.user.get_absolute_url}}">edit</a></td>
           </tr>
           {% endfor %}
     </tbody>

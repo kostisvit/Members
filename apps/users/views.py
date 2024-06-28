@@ -1,8 +1,16 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
-from .forms import EmailAuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from .forms import EmailAuthenticationForm,CustomUserChangeForm
 from django.contrib.auth import logout
+from django.contrib import messages
+from .models import CustomUser
+from django.views.generic.edit import UpdateView
 
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Login user function
 def login(request):
@@ -20,8 +28,22 @@ def custom_logout(request):
     logout(request)
     return redirect('login')
 
-# from django.views.generic import TemplateView
 
+# Member update view
+class MemberUpdateView(LoginRequiredMixin,UpdateView):
+    model = CustomUser
+    #fields = '__all__'
+    template_name = 'member_form.html'
+    form_class = CustomUserChangeForm
+    success_url = reverse_lazy('home')
 
-# class HomeView(TemplateView):
-#     template_name = "home.html"
+    def form_valid(self, form):
+        try:
+            response = super().form_valid(form)
+            logger.info(f'Member "{self.object}" updated successfully.')
+            messages.success(self.request, 'Book updated successfully.')
+            return response
+        except Exception as e:
+            logger.error(f'Error updating book: {e}')
+            form.add_error(None, 'An error occurred while updating the book.')
+            return super().form_invalid(form)

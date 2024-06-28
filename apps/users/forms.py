@@ -45,16 +45,31 @@ from .models import CustomUser
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 
+
+# Custom User New Form
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('email',)
 
+# Custom User Change Form
 class CustomUserChangeForm(UserChangeForm):
+    email = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control email-input', 'style': 'font-size: 16px;'})
+    )
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control first_name-input', 'style': 'font-size: 16px;'})
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    phone_number = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'is_active', 'is_staff')
-
+        fields = ('email', 'first_name', 'last_name', 'is_active', 'is_staff','phone_number')
+    
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label="Email", max_length=254)

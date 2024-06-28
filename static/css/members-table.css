@@ -72,16 +72,5 @@
           }
           
           /* test responsive 26/6/ */
-          @media (min-width: 1200px) {
-            .responsive-table th, .responsive-table td {
-              font-size: 20px;
-            }
-            
-            .btn-primary, .btn-success{
-              font-size:large;
-            }
-            .row {
-              font-size:x-large;
-            }
-          }
+
           

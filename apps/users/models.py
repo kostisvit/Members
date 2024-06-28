@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from company.models import Company
+from django.urls import reverse
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -59,4 +60,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.last_name} {self.first_name} - {self.company}"
+    
+    def get_absolute_url(self):
+        return reverse('member_edit', args=[str(self.id)])
 
