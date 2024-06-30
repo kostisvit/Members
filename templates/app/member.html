@@ -10,7 +10,7 @@
   {% csrf_token %}
   <div class="well">
     <div class="row">
-      <div class="form-group col-sm-4 col-md-3">
+      <div class="form-group col-sm-4 col-md-1">
         {{ filter.form.membership_number.label_tag }}
         {% render_field filter.form.membership_number class="form-control" %}
       </div>
@@ -25,7 +25,7 @@
 
 <!--Buttons-->
 <div class="buttons" style="margin-bottom: 10px;">
-<a href="" class="btn btn-primary">Νέο μέλος<a/>
+<a href="{% url 'member_new' %}" class="btn btn-primary">Νέο μέλος<a/>
 <a href="{% url 'members-list-export' %}" class="btn btn-success">Export<a/>
 </div>
 <!--End Buttons-->
@@ -62,7 +62,7 @@
             {% else %}
             <td data-label="Κατάσταση"><i class="bi bi-emoji-frown-fill" style="color: red; font-size: 2em;"></i></td>
             {% endif %}
-            <td data-label="Ενέργειες"><a href="{{member.user.get_absolute_url}}">edit</a></td>
+            <td data-label="Ενέργειες"><a href="{{member.user.get_absolute_url}}">edit</a><a href="#" style="margin-left: 10px;">delete</a></td>
           </tr>
           {% endfor %}
     </tbody>

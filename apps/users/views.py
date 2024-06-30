@@ -3,11 +3,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import EmailAuthenticationForm,CustomUserChangeForm
+from .forms import EmailAuthenticationForm,CustomUserChangeForm, CustomUserCreationForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from .models import CustomUser
 from django.views.generic.edit import UpdateView
+from django.views.generic import CreateView
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -29,6 +30,14 @@ def custom_logout(request):
     return redirect('login')
 
 
+# Member new record
+class CustomUserCreateView(CreateView):
+    model = CustomUser
+    form_class = CustomUserCreationForm
+    template_name = "app/member_new.html"
+    
+
+
 # Member update view
 class MemberUpdateView(LoginRequiredMixin,UpdateView):
     model = CustomUser
@@ -47,3 +56,5 @@ class MemberUpdateView(LoginRequiredMixin,UpdateView):
             logger.error(f'Error updating book: {e}')
             form.add_error(None, 'An error occurred while updating the book.')
             return super().form_invalid(form)
+        
+        

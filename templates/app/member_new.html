@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+ 
+    {% block content %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <h1 class="mt-5" style="color:dodgerblue; text-align:center;">Καταχώρηση μέλους</h1>
+    <div class="row">
+      <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+          <span class="font-weight-bold"></span>
+          <span class="text-black-50"></span><span> </span></div>
+        </div>
+        <div class="p-3 py-5">
+  <form method="post" class="mt-5" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if form.document.errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ form.document.errors }}
+      </div>
+    {% endif %}
+    <button type="submit" class="btn btn-success">Αποθήκευση</button>
+  </form>
+  </div>
+  </div>
+</div>
+    {% endblock %}
+

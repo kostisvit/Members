@@ -1,56 +1,21 @@
-# from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
-# from .models import CustomUser
-
-
-# class CustomUserCreationForm(UserCreationForm):
-
-#     class Meta:
-#         model = CustomUser
-#         fields = ("email",)
-
-
-# class CustomUserChangeForm(UserChangeForm):
-
-#     class Meta:
-#         model = CustomUser
-#         fields = ("email",)
-
-# from django import forms
-# from django.contrib.auth.forms import AuthenticationForm
-# from django.contrib.auth import authenticate
-
-# class EmailAuthenticationForm(AuthenticationForm):
-#     username = forms.EmailField(label="Email", max_length=254)
-
-#     def clean(self):
-#         email = self.cleaned_data.get('username')
-#         password = self.cleaned_data.get('password')
-#         if email and password:
-#             self.user_cache = authenticate(email=email, password=password)
-#             if self.user_cache is None:
-#                 raise forms.ValidationError("Invalid email or password.")
-#             elif not self.user_cache.is_active:
-#                 raise forms.ValidationError("This account is inactive.")
-#         return self.cleaned_data
-
-#     def get_user(self):
-#         return self.user_cache
-
-
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
+from django.utils.translation import gettext_lazy as _
+from company.models import Company
+from django.forms import ModelChoiceField
 
 
 # Custom User New Form
 class CustomUserCreationForm(UserCreationForm):
-    class Meta:
+
+    class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('email',)
+        fields = ('email','first_name','last_name','date_joined')
+        
+        
 
 # Custom User Change Form
 class CustomUserChangeForm(UserChangeForm):
@@ -88,3 +53,6 @@ class EmailAuthenticationForm(AuthenticationForm):
                 self.confirm_login_allowed(self.user_cache)
 
         return self.cleaned_data
+    
+    
+    
