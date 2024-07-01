@@ -35,6 +35,7 @@ class CustomUserCreateView(CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
     template_name = "app/member_new.html"
+    success_url = reverse_lazy('home')
     
 
 

@@ -6,16 +6,34 @@ from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 from company.models import Company
 from django.forms import ModelChoiceField
-
+from datetime import date
+from .choices import gender_choice
 
 # Custom User New Form
 class CustomUserCreationForm(UserCreationForm):
-
+    company = ModelChoiceField(queryset=Company.objects.order_by('name'),widget=forms.Select(attrs={'class': 'form-control'}))
+    date_joined = forms.DateField(initial=date.today,
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'placeholder': 'Select a date'})
+    )
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'placeholder': 'Select a date'})
+    )
+    gender = forms.ChoiceField(choices=gender_choice,widget=forms.Select(attrs={'class': 'form-control'}))
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('email','first_name','last_name','date_joined')
-        
-        
+        fields = ('company','email','first_name','last_name','date_joined','date_of_birth','phone_number','address','city','postal_code','country','gender','is_active','is_active', 'is_staff',)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].required = False
+        self.fields['password2'].required = False
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password('password')  # Set your default password here
+        if commit:
+            user.save()
+        return user
 
 # Custom User Change Form
 class CustomUserChangeForm(UserChangeForm):
@@ -33,7 +51,7 @@ class CustomUserChangeForm(UserChangeForm):
     )
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'is_active', 'is_staff','phone_number')
+        fields = ('email', 'first_name', 'last_name', 'is_active', 'is_staff','phone_number','city')
     
 
 class EmailAuthenticationForm(AuthenticationForm):

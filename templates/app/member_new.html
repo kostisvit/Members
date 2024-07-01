@@ -4,27 +4,59 @@
 
  
     {% block content %}
-<div class="container rounded bg-white mt-5 mb-5">
-    <h1 class="mt-5" style="color:dodgerblue; text-align:center;">Καταχώρηση μέλους</h1>
-    <div class="row">
-      <div class="col-md-3 border-right">
-        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-          <span class="font-weight-bold"></span>
-          <span class="text-black-50"></span><span> </span></div>
-        </div>
-        <div class="p-3 py-5">
-  <form method="post" class="mt-5" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    {% if form.document.errors %}
-      <div class="alert alert-danger" role="alert">
-        {{ form.document.errors }}
+    <form method="post" action="{% url 'member_new' %}">
+      {% csrf_token %}
+  <div class="container rounded bg-white mt-5 mb-5">
+      <div class="row">
+          <div class="col-md-2 border-right">
+              <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                  <span class="font-weight-bold"></span>
+                  <span class="text-black-50"></span><span> </span></div>
+          </div>
+          <div class="col-md-5 border-right">
+              <div class="p-2 py-3">
+                  <div class="d-flex justify-content-center align-items-center mb-3">
+                      <h4 class="text-right">Καταχώρηση Μέλους</h4>
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-12"><label class="labels"></label>{{ form.company|as_crispy_field }}</div>
+                      <div class="col-md-12"><label class="labels"></label>{{ form.last_name|as_crispy_field }}</div>
+                      <div class="col-md-12"><label class="labels"></label>{{form.first_name|as_crispy_field}}</div>
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-12"><label class="labels"></label>{{form.email|as_crispy_field}}</div>
+                      <div class="col-md-12"><label class="labels"></label>{{form.phone_number|as_crispy_field}}</div>
+                      <div class="col-md-12"><label class="labels"></label>{{form.date_of_birth|as_crispy_field}}</div>
+                  </div>
+                  <div class="form-row">
+                      <div class="col-md-4"><label class="labels"></label>{{form.gender|as_crispy_field}}</div>
+                  </div>
+                  
+              </div>
+              {% if messages %}
+              <ul>
+                  {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+          </div>
+          <div class="col-md-5">
+              <div class="p-2 py-3">
+                <div class="row mt-2">
+                  <div class="col-md-12"><label class="labels"></label>{{form.address|as_crispy_field}}</div>
+                  <div class="col-md-12"><label class="labels"></label>{{form.city|as_crispy_field}}</div>
+                  <div class="col-md-12"><label class="labels"></label>{{form.country|as_crispy_field}}</div>
+                  <div class="col-md-12"><label class="labels"></label>{{form.postal_code|as_crispy_field}}</div>
+                  <div class="col-md-12"><label class="labels"></label>{{form.is_active|as_crispy_field}}</div>
+                </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                </div>
+          </div>
       </div>
-    {% endif %}
-    <button type="submit" class="btn btn-success">Αποθήκευση</button>
+  </div>
+  </div>
+  </div>
   </form>
-  </div>
-  </div>
-</div>
     {% endblock %}
 
