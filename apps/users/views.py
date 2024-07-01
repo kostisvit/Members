@@ -31,11 +31,17 @@ def custom_logout(request):
 
 
 # Member new record
-class CustomUserCreateView(CreateView):
+class CustomUserCreateView(LoginRequiredMixin,CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
     template_name = "app/member_new.html"
     success_url = reverse_lazy('home')
+    
+    def form_invalid(self, form):
+        # Here you can add custom logic if the form is invalid
+        # For now, we are just printing errors to the console
+        print(form.errors)
+        return super().form_invalid(form)
     
 
 
@@ -51,11 +57,11 @@ class MemberUpdateView(LoginRequiredMixin,UpdateView):
         try:
             response = super().form_valid(form)
             logger.info(f'Member "{self.object}" updated successfully.')
-            messages.success(self.request, 'Book updated successfully.')
+            messages.success(self.request, 'Member updated successfully.')
             return response
         except Exception as e:
             logger.error(f'Error updating book: {e}')
-            form.add_error(None, 'An error occurred while updating the book.')
+            form.add_error(None, 'An error occurred while updating the member.')
             return super().form_invalid(form)
         
         

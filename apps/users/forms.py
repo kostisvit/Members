@@ -21,7 +21,7 @@ class CustomUserCreationForm(UserCreationForm):
     gender = forms.ChoiceField(choices=gender_choice,widget=forms.Select(attrs={'class': 'form-control'}))
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('company','email','first_name','last_name','date_joined','date_of_birth','phone_number','address','city','postal_code','country','gender','is_active','is_active', 'is_staff',)
+        fields = ('company','email','first_name','last_name','date_joined','date_of_birth','phone_number','address','city','postal_code','country','gender','is_active',)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,7 +51,7 @@ class CustomUserChangeForm(UserChangeForm):
     )
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'is_active', 'is_staff','phone_number','city')
+        fields = ('company','email','first_name','last_name','date_joined','date_of_birth','phone_number','address','city','postal_code','country','gender','is_active')
     
 
 class EmailAuthenticationForm(AuthenticationForm):
